@@ -9,6 +9,11 @@ function App() {
     primaryImage: string;
     primaryImageSmall: string;
     objectID: number;
+    artistDisplayName: string;
+    objectDate: string;
+    medium: string;
+    dimensions: string;
+    objectURL: string;
   }
 
   const [artwork, setArtwork] = useState<Artwork | null>(null);
@@ -22,7 +27,7 @@ function App() {
           `https://collectionapi.metmuseum.org/public/collection/v1/objects/${artworkID}`
         );
 
-        const artworkData: Artwork = (await response.json()) as object;
+        const artworkData: Artwork = (await response.json()) as Artwork;
         setArtwork(artworkData);
         setIsLoading(false);
       } catch (error) {
@@ -54,16 +59,38 @@ function App() {
   }
 
   return (
-    <>
-      <div>{artwork.title}</div>
-      {artwork.primaryImage ? (
-        artwork.primaryImageSmall ? (
-          <img src={artwork.primaryImageSmall} alt={artwork.title} />
-        ) : (
-          <img src={artwork.primaryImage} alt={artwork.title} />
-        )
-      ) : null}
-    </>
+    <div className="body-container">
+      <div className="image-container">
+        <h1>{artwork.title}</h1>
+        {artwork.primaryImage ? (
+          artwork.primaryImageSmall ? (
+            <img src={artwork.primaryImageSmall} alt={artwork.title} />
+          ) : (
+            <img src={artwork.primaryImage} alt={artwork.title} />
+          )
+        ) : null}
+        {/* <p className="artwork-details">{artwork.artistDisplayName}</p> */}
+
+        <div className="artwork-details">
+          {artwork.artistDisplayName && (
+            <p>
+              <span className="label">Artist:</span> {artwork.artistDisplayName}
+            </p>
+          )}
+          {artwork.objectDate && (
+            <p>
+              <span className="label">Date:</span> {artwork.objectDate}
+            </p>
+          )}
+          {artwork.medium && (
+            <p>
+              <span className="label">Medium:</span> {artwork.medium}
+            </p>
+          )}
+          {artwork.objectURL && <a href={artwork.objectURL}>Learn More</a>}
+        </div>
+      </div>
+    </div>
   );
 }
 
