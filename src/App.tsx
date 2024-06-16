@@ -1,8 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import metObjectsWithImages from "./assets/met-objects-q-paint.json";
+import metObjectsWithImages from "./assets/met-objects-q-all.json";
 function App() {
-  // Current metObjectsWithImages is from https://collectionapi.metmuseum.org/public/collection/v1/search?q=paint&hasImages=true
+  // Current metObjectsWithImages is from https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&isPublicDomain=true&isPublicDomain=true&q=all
 
   interface Artwork {
     title: string;
@@ -69,7 +69,6 @@ function App() {
             <img src={artwork.primaryImage} alt={artwork.title} />
           )
         ) : null}
-        {/* <p className="artwork-details">{artwork.artistDisplayName}</p> */}
 
         <div className="artwork-details">
           {artwork.artistDisplayName && (
